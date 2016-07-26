@@ -1,0 +1,123 @@
+
+<div class="ui big breadcrumb">
+  {{parents-string category=category}}
+</div>
+
+
+{{#if isNotMain}}
+<div class="ui form">
+  <div class="fields">
+    <div class="field">
+      <label>Сумма</label>
+      {{input type="number" value=cost.sum step="0.01" }}
+    </div>
+    <div class="field">
+      <label>Дата</label>
+      {{input type="date" value=cost.date }}
+    </div>
+    <div class="field">
+      <label>Описание</label>
+      {{input type="text" value=cost.description placeholder="Описание"}}
+    </div>
+    <div class="field">
+      <label>&nbsp; </label>
+      <button class="ui button primary" {{action "addCost"}}>Сохранить</button>
+    </div>
+  </div>
+</div>
+<hr>
+{{/if}}
+
+
+<div class="ui form">
+  <div class="fields">
+    <div class="field">
+      <div class="ui buttons">
+        {{#each buttons as |button|}}
+          {{date-panel-button button=button type=dates.type setActiveType='setActiveType'}}
+        {{/each}}
+      </div>
+    </div>
+    <div class="field">
+      <button class="ui button icon" {{action "prevDates"}}><i class="left chevron icon divider"></i></button>
+    </div>
+    {{#if isPeriod}}
+    <div class="field">
+      {{input type="date" value=dates.dateStart }}
+    </div>
+    <div class="field">
+      {{input type="date" value=dates.dateEnd }}
+    </div>
+    <div class="field">
+      <button class="ui button" {{action "changeDates"}}>Применить</button>
+    </div>
+    {{else}}
+    <div class="field">
+      <h1>{{dates.string}}</h1>
+    </div>
+    {{/if}}
+    <div class="field">
+      <button class="ui button icon" {{action "nextDates"}}><i class="right chevron icon divider"></i></button>
+    </div>
+  </div>
+</div>
+
+
+<div class="ui column stackable grid">
+  <div class="five wide column">
+    <table class="ui small unstackable table">
+      <thead>
+        <tr>
+          <th>{{category.name}}</th>
+          <th class="right aligned">Всего: {{total}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each children as |child|}}
+        <tr><td>{{#link-to 'category' child.id}}{{child.name}}{{/link-to}}</td><td class="right aligned"><b>{{child.sum}}</b></td></tr>
+        {{/each}}
+        <tr>
+          <td colspan="2">
+            <div class="ui action small input">
+              {{input value=new_category.name type="text" placeholder="Новая категория"}}
+              <button class="ui small button" {{action "addNewChildCategory"}}>Добавить</button>
+            </div>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+  <div class="seven wide column">
+    <table class="ui small unstackable table">
+      <thead>
+        <tr>
+          <th>Дата</th>
+          <th>Категория</th>
+          <th>Описание</th>
+          <th class="right aligned">Сумма</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each currentCosts as |cost|}}
+          <tr>
+            <td>{{moment-format cost.date 'DD.MM.YYYY' 'X'}}</td>
+            <td>{{cost.category.name}}</td>
+            <td>{{cost.description}}</td>
+            <td class="right aligned"><b>{{cost.sum}}</b></td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+
+
+  <div class="four wide column">
+      {{ember-chart type='Pie' data=pieData width=250 height=250}}
+  </div>
+
+</div>
+{{#each currentChildren as 'ccc'}}
+  <li>{{ccc}}</li>
+{{/each}}
+{{outlet}}

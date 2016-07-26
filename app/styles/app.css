@@ -1,0 +1,7 @@
+.ui.list .list>.item .header, .ui.list>.item .header {
+min-width: 250px;
+}
+
+.ui.big.breadcrumb  {
+  margin: 10px 0 30px;
+}

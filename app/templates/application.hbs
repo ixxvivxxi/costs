@@ -1,0 +1,17 @@
+
+<div class="ui column stackable grid">
+  <div class="three wide column">
+
+    <div class="ui large vertical menu">
+      {{#link-to 'category' 0 class="item" }}Все расходы{{/link-to}}
+        {{#each model as |category|}}
+          {{link-to category.name  'category' category.id  class="item"}}
+        {{/each}}
+    </div>
+    <button class="ui button mini" {{action "importData"}}>Импорт</button>
+  </div>
+  <div class="thirteen wide column">
+    {{outlet}}
+  </div>
+
+</div>

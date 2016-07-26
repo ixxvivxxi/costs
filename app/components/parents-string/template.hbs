@@ -1,0 +1,3 @@
+{{#each parents as |category|}}
+  <i class="right chevron icon divider"></i>{{#link-to  'category' category.id class="section"}}{{category.name}}{{/link-to}}
+{{/each}}
