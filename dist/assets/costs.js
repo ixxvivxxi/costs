@@ -1981,7 +1981,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("costs/app")["default"].create({"name":"costs","version":"0.0.1+d3bdf069"});
+  require("costs/app")["default"].create({"name":"costs","version":"0.0.1+9f9b1b79"});
 }
 
 /* jshint ignore:end */
