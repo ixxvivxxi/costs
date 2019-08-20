@@ -1,10 +1,13 @@
-import Ember from 'ember';
+import { computed } from '@ember/object';
+import { hash } from 'rsvp';
+import { inject as service } from '@ember/service';
+import Route from '@ember/routing/route';
 import moment from 'moment';
 
-export default Ember.Route.extend({
-  dateService: Ember.inject.service('dates'),
+export default Route.extend({
+  dateService: service('dates'),
   model(params) {
-    return Ember.RSVP.hash({
+    return hash({
       category: this.store.findRecord('category', params.category_id, {reload: true}),
       cost: {sum: 0, date: moment().format('YYYY-MM-DD'), description: '' },
       children: this.store.query('category',{filter:{parent: params.category_id}}),
@@ -39,17 +42,17 @@ export default Ember.Route.extend({
     });
 
   },
-  total: Ember.computed('costs.@each.sum', function() {
+  total: computed('costs.@each.sum', function() {
     var costs = this.get('costs');
     return costs.reduce(function(previousValue, cost) {
         return parseFloat(previousValue) + parseFloat(cost.get('sum'));
     },0);
   }),
-  currentCosts: Ember.computed('costs.@each.sum', function() {
+  currentCosts: computed('costs.@each.sum', function() {
     var costs = this.get('costs');
     return costs.sortBy('date');
   }),
-  pieData: Ember.computed('children.sum', function() {
+  pieData: computed('children.sum', function() {
     var children = this.get('children'),
     piedata = [];
     children.forEach((child) => {

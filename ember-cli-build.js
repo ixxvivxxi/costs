@@ -1,9 +1,9 @@
-/*jshint node:true*/
-/* global require, module */
-var EmberApp = require('ember-cli/lib/broccoli/ember-app');
+'use strict';
+
+const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 
 module.exports = function(defaults) {
-  var app = new EmberApp(defaults, {
+  let app = new EmberApp(defaults, {
     // Add options here
   });
 
@@ -19,9 +19,5 @@ module.exports = function(defaults) {
   // modules that you would like to import into your application
   // please specify an object with the list of modules as keys
   // along with the exports of each module as its value.
-  app.import('bower_components/semantic-ui/dist/semantic.min.css');
-  app.import("bower_components/semantic-ui/dist/themes/default/assets/fonts/icons.woff2", { destDir: "assets/themes/default/assets/fonts" });
-  app.import("bower_components/semantic-ui/dist/themes/default/assets/fonts/icons.woff", { destDir: "assets/themes/default/assets/fonts" });
-  app.import("bower_components/semantic-ui/dist/themes/default/assets/fonts/icons.ttf", { destDir: "assets/themes/default/assets/fonts" });
   return app.toTree();
 };
